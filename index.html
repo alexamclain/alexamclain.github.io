@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexa McLain</title>
+    <style>
+        :root {
+            --text-color: #1c1c1c;
+            --bg-color: #f7f7f7;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #e1e1e1;
+                --bg-color: #1c1c1c;
+            }
+        }
+
+        body {
+            font-family: Charter, Georgia, serif;
+            line-height: 1.6;
+            max-width: 680px;
+            margin: 60px auto;
+            padding: 0 20px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+        }
+
+        a:hover {
+            text-decoration-thickness: 2px;
+        }
+
+        .toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background: #ccc;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .toggle:before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+
+        .toggle:checked {
+            background: #666;
+        }
+
+        .toggle:checked:before {
+            transform: translateX(20px);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" class="toggle" id="theme-toggle">
+    <h1>Alexa McLain</h1>
+
+    <p>
+        A brief introduction about yourself goes here. Describe your current role,
+        focus areas, or interests.
+    </p>
+
+    <p>
+        You can add more paragraphs about your background, experience, or any other
+        relevant information.
+    </p>
+
+    <h2>Writing</h2>
+    <ul>
+        <li><a href="#">Title of Your First Essay</a></li>
+        <li><a href="#">Another Interesting Essay</a></li>
+    </ul>
+
+    <h2>Research</h2>
+    <ul>
+        <li><a href="#">Research Project One</a></li>
+        <li><a href="#">Research Project Two</a></li>
+    </ul>
+
+    <h2>Interviews</h2>
+    <ul>
+        <li><a href="#">Interview Title One</a></li>
+        <li><a href="#">Another Interview</a></li>
+    </ul>
+
+    <script>
+        // Dark mode toggle
+        const toggle = document.getElementById('theme-toggle');
+        toggle.checked = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        toggle.addEventListener('change', (e) => {
+            document.documentElement.style.setProperty('--text-color', 
+                e.target.checked ? '#e1e1e1' : '#1c1c1c');
+            document.documentElement.style.setProperty('--bg-color', 
+                e.target.checked ? '#1c1c1c' : '#f7f7f7');
+        });
+    </script>
+</body>
+</html>
