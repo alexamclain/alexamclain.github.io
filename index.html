@@ -1,166 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexa McLain</title>
-    <style>
-        :root {
-            --text-color: #1c1c1c;
-            --bg-color: #f7f7f7;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Overhang</title>
+<meta name="description" content="The Overhang: a DARPA expMath workshop on AI and number theory, October 9–10, 2026, San Francisco.">
+<style>*,*::before,*::after{box-sizing:border-box} body{margin:0} img{max-width:100%}</style>
+<style>
+/* Layout: single academic column, like a department workshop page. Left-aligned, a hairline-ruled schedule table, mono for times. */
+:root {
+  /* Colors match alexamclain.com */
+  --bg: #f7f7f7;
+  --fg: #1c1c1c;
+  --muted: #5e5e5e;
+  --rule: #d6d6d6;
+  --accent: #1c1c1c;
+  --tint: #ececec;
+  /* Matches alexamclain.com: Charter, Georgia, serif throughout */
+  --f-display: Charter, Georgia, serif;
+  --f-body: Charter, Georgia, serif;
+  --f-mono: Charter, Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1c1c; --fg: #e1e1e1; --muted: #a3a3a3; --rule: #3a3a3a;
+    --accent: #e1e1e1; --tint: #262626; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1c1c; --fg: #e1e1e1; --muted: #a3a3a3; --rule: #3a3a3a;
+  --accent: #e1e1e1; --tint: #262626; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 1.125rem; line-height: 1.6; }
+.wrap { max-width: 46rem; margin: 0 auto; padding-inline: 20px; padding-block: 3.5rem 4rem; display: grid; gap: 3rem; }
+a { color: var(--accent); text-underline-offset: 2px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+h1, h2 { font-family: var(--f-display); font-weight: 700; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.6rem, 8vw, 4rem); line-height: 1.02; letter-spacing: -0.01em; }
+h2 { font-size: 1.75rem; line-height: 1.2; margin-bottom: 0.9rem; }
+p { margin: 0; max-width: 65ch; }
+section { display: grid; gap: 0.25rem; }
+section > p + p { margin-top: 0.85rem; }
+.label { font-family: var(--f-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --text-color: #e1e1e1;
-                --bg-color: #1c1c1c;
-            }
-        }
+header { display: grid; gap: 1rem; padding-bottom: 2.25rem; border-bottom: 1px solid var(--rule); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cover {width: min(100%, 22rem); height: auto; aspect-ratio: 1; display: block; border-radius: 2px; margin-bottom: 0.75rem; }
+.sub { font-size: 1.2rem; font-style: italic; color: var(--muted); }
+.facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1.75rem; margin-top: 0.5rem; font-size: 1rem; }
+.facts div { display: grid; }
+.facts strong { font-weight: 600; }
 
-        body {
-            font-family: Charter, Georgia, serif;
-            line-height: 1.6;
-            max-width: 680px;
-            margin: 60px auto;
-            padding: 0 20px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            position: relative;
-        }
+.note { background: var(--tint); padding: 1rem 1.15rem; border-radius: 3px; font-size: 0.98rem; }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
+.glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.6rem 2rem; padding: 0; margin: 0; list-style: none; }
+.glance li { border-top: 1px solid var(--rule); padding-top: 0.6rem; display: grid; }
+.glance b { font-weight: 600; }
 
-        h2 {
-            font-size: 1.75rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-        }
+.days { display: grid; gap: 2rem; }
+.day h3 { font-family: var(--f-body); font-weight: 600; font-size: 1.1rem; margin: 0 0 0.4rem; display: flex; gap: 0.6rem; align-items: baseline; flex-wrap: wrap; }
+.day h3 span { font-family: var(--f-mono); font-weight: 400; font-size: 0.8rem; color: var(--muted); }
+.tbl { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+td { padding: 0.55rem 0; border-top: 1px solid var(--rule); vertical-align: baseline; }
+tr:last-child td { border-bottom: 1px solid var(--rule); }
+td.t { font-family: var(--f-mono); font-size: 0.85rem; color: var(--muted); width: 6.5rem; white-space: nowrap; font-variant-numeric: tabular-nums; padding-right: 1rem; }
+tr.work td:last-child { font-weight: 600; }
 
-        p {
-            font-size: 1.125rem;
-            margin-bottom: 1.5rem;
-        }
+.people { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem 2rem; list-style: none; padding: 0; margin: 0; }
+.people li { display: grid; }
+.people .aff { color: var(--muted); font-size: 0.95rem; }
 
-        a {
-            color: inherit;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 2px;
-        }
-
-        a:hover {
-            text-decoration-thickness: 2px;
-        }
-
-        .toggle-container {
-            position: absolute;
-            top: 20px;
-            right: -60px;
-            display: flex;
-            align-items: center;
-        }
-
-        .toggle {
-            appearance: none;
-            width: 40px;
-            height: 24px;
-            background: #ccc;
-            border-radius: 12px;
-            position: relative;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .toggle:before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: white;
-            top: 2px;
-            left: 2px;
-            transition: all 0.3s;
-        }
-
-        .toggle:checked {
-            background: #666;
-        }
-
-        .toggle:checked:before {
-            transform: translateX(16px);
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 1rem;
-        }
-    </style>
+footer { border-top: 1px solid var(--rule); padding-top: 1.5rem; display: grid; gap: 0.5rem; font-size: 0.95rem; color: var(--muted); }
+footer p { max-width: none; }
+</style>
 </head>
 <body>
-    <div class="toggle-container">
-        <input type="checkbox" class="toggle" id="theme-toggle">
+<div class="wrap">
+  <header>
+    <img class="cover" src="cover.png" width="800" height="800" alt="The Overhang: white outline of a sphere sliced into horizontal rings, scattered with small crosses, on black">
+    <h1 class="sr-only">The Overhang</h1>
+    <div class="facts">
+      <div><span class="label">Dates</span><strong>October 9–10, 2026</strong></div>
+      <div><span class="label">Venue</span><strong>San Francisco, CA</strong></div>
+      <div><span class="label">Format</span><strong>Invite-only, on site</strong></div>
     </div>
-    <h1>Alexa McLain</h1>
+  </header>
 
-<!--     <h2>Questions I'm Working On</h2>
-<ul>
-    <li>
-        <a href="#">How does math illustrate the capabilties and limitations of deep learning?</a>
-    </li>
-    <li>
-        <a href="#">How can one get better at visually understanding probability?</a>
-    </li>
-</ul>
- -->
-    <p>
-         I invest with Elad Gil and am a Research Fellow in the UC Irvine Department of Logic and Philosophy of Science. I am exploring the recent advances in AI through the lens of proof generation in natural and formal languages.
-    </p>
+  <section aria-labelledby="about">
+    <h2 id="about">About</h2>
+    <p>This workshop brought together number theorists, along with researchers and technologists from industry, to explore new models of collaborative research. Participants worked with one another, with frontier AI models, and with multi-agent systems. The aim was to see which new directions in number theory could be advanced under expert human direction.</p>
+    <p>“The Overhang” is meant to capture the idea that new models, and new ways of using them, make it possible to make progress relatively quickly on open problems if people try working on them in new ways.</p>
+    <p>Many mathematicians are already finding uses for AI in their research, but adoption has been uneven. These two days gave experts time to experiment, collaborate within and across institutions, and share methods and problems.</p>
+    <p>This effort complements work to update community and professional norms around tool use. What we want to do is bound up with what we are able to do, and this event aims to keep the latter up to date and empirically grounded.</p>
+  </section>
 
-    <p>
-      Previously, I co-founded an algorithmic trading firm, was an early employee of Palantir Technologies, and worked in distressed structured products at BlackRock.
-    </p>
-<!--
-    <h2>Writing</h2>
-     <ul>
-        <li><a href="#">Title of Your First Essay</a></li>
-        <li><a href="#">Another Interesting Essay</a></li>
-    </ul> 
+  <section aria-labelledby="schedule">
+    <h2 id="schedule">Schedule</h2>
+    <div class="days">
+      <div class="day">
+        <h3>Friday <span>Oct 9</span></h3>
+        <div class="tbl"><table>
+          <tr><td class="t">9:00 am</td><td>Registration and check-in</td></tr>
+          <tr><td class="t">9:40 am</td><td>Welcome and kickoff</td></tr>
+          <tr><td class="t">10:00 am</td><td>Research talks</td></tr>
+          <tr><td class="t">12:00 pm</td><td>Lunch</td></tr>
+          <tr class="work"><td class="t">1:00 pm</td><td>Work sessions</td></tr>
+          <tr><td class="t">7:30 pm</td><td>Group dinner</td></tr>
+        </table></div>
+      </div>
+      <div class="day">
+        <h3>Saturday <span>Oct 10</span></h3>
+        <div class="tbl"><table>
+          <tr><td class="t">9:00 am</td><td>Registration and check-in</td></tr>
+          <tr><td class="t">10:00 am</td><td>Research talk</td></tr>
+          <tr><td class="t">11:00 am</td><td>Show and tell</td></tr>
+          <tr><td class="t">12:00 pm</td><td>Lunch</td></tr>
+          <tr class="work"><td class="t">1:00 pm</td><td>Work sessions</td></tr>
+          <tr><td class="t">5:30 pm</td><td>Wrap-up and closing</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </section>
 
-    <h2>Research</h2>
-     <ul>
-        <li><a href="#">Research Project One</a></li>
-        <li><a href="#">Research Project Two</a></li>
-    </ul> -->
+  <section aria-labelledby="organizers">
+    <h2 id="organizers">Organizers</h2>
+    <ul class="people">
+      <li><a href="https://alexamclain.com">Alexa McLain</a><span class="aff">UC Irvine</span></li>
+      <li><a href="https://math.mit.edu/~drew/">Andrew Sutherland</a><span class="aff">MIT</span></li>    </ul>
+  </section>
 
-     <h2>Links</h2>
-    <ul>
-        <li><a href="https://news.uci.edu/2026/05/18/uc-irvine-usc-receive-2-6-million-darpa-grant-for-ai-to-drive-math-breakthroughs/">DARPA ExpMath</a></li>
-        <li><a href="https://www.lps.uci.edu/workshops/aimath2025.php">Humans, Math, and Machines</a></li>
-        <li><a href="https://plato.stanford.edu/entries/chance-randomness/">Chance vs Randomness</a></li>
-        <li><a href="https://arxiv.org/abs/2602.12463">Correctness, Artificial Intelligence, and the
-Epistemic Value of Mathematical Proof</a></li>
-      
-    </ul>
-    <script>
-        // Dark mode toggle
-        const toggle = document.getElementById('theme-toggle');
-        toggle.checked = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        toggle.addEventListener('change', (e) => {
-            document.documentElement.style.setProperty('--text-color', 
-                e.target.checked ? '#e1e1e1' : '#1c1c1c');
-            document.documentElement.style.setProperty('--bg-color', 
-                e.target.checked ? '#1c1c1c' : '#f7f7f7');
-        });
-    </script>
+  <section aria-labelledby="support">
+    <h2 id="support">Support</h2>
+    <p>This workshop is part of a <a href="https://news.uci.edu/2026/05/18/uc-irvine-usc-receive-2-6-million-darpa-grant-for-ai-to-drive-math-breakthroughs/">DARPA-funded effort</a> under the Exponentiating Mathematics (expMath) program to evaluate how new AI tools affect mathematical research. Additional support came from <a href="https://www.paradigm.xyz/">Paradigm</a> (<a href="https://x.com/danrobinson">Dan Robinson</a>), Gil &amp; Co., OpenAI, and Anthropic.</p>
+  </section>
+
+</div>
 </body>
 </html>
